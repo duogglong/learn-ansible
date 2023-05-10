@@ -1,0 +1,31 @@
+# - name: Install MySQL server
+#   apt:
+#     name: mysql-server
+#     state: present
+
+# - name: Start MySQL service
+#   service:
+#     name: mysql
+#     state: started
+
+# - name: Configure MySQL root password
+#   mysql_user:
+#     name: root
+#     password: "123456"
+#     host_all: yes
+#     login_user: root
+#     login_password: "123456"
+
+- name: Run NGINX container
+  docker_container:
+    name: my-nginx
+    image: nginx
+    ports:
+      - "80:80"
+    restart_policy: always
+
+- name: Pull Docker image
+  docker_image:
+    source: pull
+    name: duogglong/backend-vdt2023
+    state: present

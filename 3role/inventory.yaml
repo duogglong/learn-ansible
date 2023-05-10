@@ -1,0 +1,9 @@
+---
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /home/imey/Desktop/VTS-Trainning/HW2/venv/bin/python
+      ansible_become_user: root
+      ansible_become_password: 123456
+      hostname: vtn-01
