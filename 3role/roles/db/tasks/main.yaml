@@ -1,2 +1,11 @@
-- name: Pull Docker image
+- name: Pull Docker image MySQL
   command: docker pull mysql
+  
+- name: Check if MySQL container exists
+  shell: docker inspect my-mysql >/dev/null 2>&1
+  register: mysql_container_info
+  ignore_errors: true
+
+- name: Start MySQL container
+  command: docker run --name my-mysql -e MYSQL_ROOT_PASSWORD="{{ mysql_root_password }}" -d -p "3306:3306" mysql
+  when: mysql_container_info.rc != 0
