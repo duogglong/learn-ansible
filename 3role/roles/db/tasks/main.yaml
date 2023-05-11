@@ -1,11 +1,18 @@
-- name: Pull Docker image MySQL
-  command: docker pull mysql
-  
-- name: Check if MySQL container exists
-  shell: docker inspect my-mysql >/dev/null 2>&1
-  register: mysql_container_info
-  ignore_errors: true
+- name: Pull MySQL Docker image
+  docker_image:
+    source: pull
+    name: "{{ mysql_image }}"
 
-- name: Start MySQL container
-  command: docker run --name my-mysql -e MYSQL_ROOT_PASSWORD="{{ mysql_root_password }}" -d -p "3306:3306" mysql
-  when: mysql_container_info.rc != 0
+- name: Run MySQL Docker container
+  docker_container:
+    name: "{{ mysql_container_name }}"
+    image: "{{ mysql_image }}"
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+    ports:
+      - "3306:3306"
+    state: started
+    interactive: true
+    tty: true
+    networks:
+      - name: vdt2023

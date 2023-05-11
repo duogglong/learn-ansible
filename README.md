@@ -39,3 +39,15 @@ ansible-playbook -i inventory.yaml setup.yaml
 -------------------
 1. handlers:
 - Các tasks trong handlers chỉ chạy khi có sự thay đổi
+
+2. Chạy playbook với file đã mã hóa vault:
+ansible-playbook -i inventory.yaml --ask-vault-password setup.yaml
+
+3. Chạy playbook với tag --ask-become-pass để nhập mật khẩu:
+ansible-playbook -i inventory.yaml --ask-vault-password --ask-become-pass setup.yaml
+
+4. Install community.docker:
+ansible-galaxy collection install community.docker
+
+5. Config docker
+in ~/.docker/config.json change credsStore to credStore

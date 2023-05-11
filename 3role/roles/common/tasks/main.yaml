@@ -55,3 +55,8 @@
     src: ../templates/ssh_hardening.conf
     dest: /etc/ssh/sshd_config.d/ssh_hardening.conf
   notify: "Restart SSH"
+
+- name: Create Docker network - vdt2023
+  docker_network:
+    name: "{{ network_name }}"
+    state: present
